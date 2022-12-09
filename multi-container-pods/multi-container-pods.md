@@ -6,4 +6,13 @@
     ls
 
 2. Create a pod with an nginx container exposed on port 80. Add a busybox init container which downloads a page using "wget -O /work-dir/index.html http://neverssl.com/online". Make a volume of type emptyDir and mount it in both containers. For the nginx container, mount it on "/usr/share/nginx/html" and for the initcontainer, mount it on "/work-dir". When done, get the IP of the created pod and create a busybox pod and run "wget -O- IP"
-    
+    k run nginx --image=nginx --port=80 --dry-run=client -oyaml > nginx-multi.yaml
+    add initContainer with commands
+    add volumeMount in nginx and initContainer
+    name as same volume name
+    make volume
+    add containerPort 80 for nginx
+    ka nginx-multi.yaml
+    k get pod -o wide (get IP *remember to add port later)
+    k run nginx-test --image=busybox --restart=Never --rm -it -- /bin/sh -c "wget -O- IP"
+

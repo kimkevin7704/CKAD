@@ -60,3 +60,15 @@ kubernetes.io > Documentation > Concepts > Overview > Working with Kubernetes Ob
 13. Remove these pods to have a clean state in your cluster
     k delete pod nginx{1..3}
 
+14. Create a deployment with image nginx:1.18.0, called nginx, having 2 replicas, defining port 80 as the port that this container exposes (don't create a service for this deployment)
+    k create deploy nginx --image=nginx:1.18.0 --replicas=2 --port=80 --dry-run=client -oyaml > deploy.yaml
+    ka deploy.yaml
+
+15. Get the YAML for one of the pods
+    k get pod nginx-578b7694b4-jzqff -oyaml > pod.yaml
+
+16. Check how the deployment rollout is going
+    k rollout status deploy/nginx
+
+17. Update the nginx image to nginx:1.19.8
+    k edit deploy nginx

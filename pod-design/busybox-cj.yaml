@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  creationTimestamp: "2022-12-11T18:57:12Z"
+  generation: 1
+  name: busybox
+  namespace: default
+  resourceVersion: "79092"
+  uid: 1669d55a-f84f-4346-b559-bf75d2dde7d3
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: busybox
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes cluster
+            image: busybox
+            imagePullPolicy: Always
+            name: busybox
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  schedule: '*/1 * * * *'
+  successfulJobsHistoryLimit: 3
+  suspend: false
+status:
+  lastScheduleTime: "2022-12-11T19:00:00Z"
+  lastSuccessfulTime: "2022-12-11T19:00:06Z"

@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  var6: val6
+  var7: val7
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: anotherone

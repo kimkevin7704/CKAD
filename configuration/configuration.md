@@ -45,3 +45,14 @@
         - name: cmvolume
           configMap:
             name: cmvolume
+
+9. Create the YAML for an nginx pod that runs with the user ID 101. No need to create the pod
+    k run nginx-sc --image=nginx --dry-run=client -oyaml > nginx-sc.yaml
+    add securityContext to pod.spec
+        runAsUser: 101
+
+10. Create the YAML for an nginx pod that has the capabilities "NET_ADMIN", "SYS_TIME" added to its single container
+    k run nginx-sc2 --image=nginx --dry-run=client -oyaml > nginx-sc2.yaml
+    add securityContext to pod.spec.containers
+        capabilities:
+            add: ["NET_ADMIN", "SYS_TIME"]

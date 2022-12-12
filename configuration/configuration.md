@@ -56,3 +56,14 @@
     add securityContext to pod.spec.containers
         capabilities:
             add: ["NET_ADMIN", "SYS_TIME"]
+
+11. Create an nginx pod with requests cpu=100m,memory=256Mi and limits cpu=200m,memory=512Mi
+    k run nginx-rl --image=nginx --dry-run=client -oyaml > nginx-rl.yaml
+    add in pod.spec.containers.resources
+        requests:
+            cpu: 100m
+            memory: 256Mi
+        limits:
+            cpu: 200m
+            memory: 512Mi
+

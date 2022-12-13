@@ -67,3 +67,20 @@
             cpu: 200m
             memory: 512Mi
 
+12. Create a secret called mysecret with the values password=mypass
+    k create secret generic mysecret --from-literal=password=mypass
+
+13. Create a secret called mysecret2 that gets key/value from a file
+    echo -n admin > username
+    k create secret generic mysecret2 --from-file=username
+
+14. See all the service accounts of the cluster in all namespaces
+    k get sa --all-namespaces
+
+15. Create a new serviceaccount called 'myuser'
+    k create sa myuser
+
+16. Create an nginx pod that uses 'myuser' as a service account
+    k run nginx-sa --image=nginx --dry-run=client -oyaml > nginx-sa.yaml
+    add serviceAccount: myuser in pod.spec
+    ka nginx-sa.yaml

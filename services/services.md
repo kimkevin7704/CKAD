@@ -1,5 +1,5 @@
 1. Create a pod with image nginx called nginx and expose its port 80
-    k create deploy nginx --image=nginx --port=80 --expose
+    k run deploy nginx --image=nginx --port=80 --expose
  
 2. Confirm that ClusterIP has been created. Also check endpoints
     k get svc
@@ -34,5 +34,8 @@
  
 9. Create an nginx deployment of 2 replicas, expose it via a ClusterIP service on port 80. Create a NetworkPolicy so that only pods with labels 'access: granted' can access the deployment and apply it
 kubernetes.io > Documentation > Concepts > Services, Load Balancing, and Networking > Network Policies
+    k create deploy nginx --image=nginx --replicas=2 --port=80 --dry-run=client -oyaml > nginx.yaml
+    k expose deploy nginx --port=80
+    
 
 10. Note that network policies may not be enforced by default, depending on your k8s implementation. E.g. Azure AKS by default won't have policy enforcement, the cluster must be created with an explicit support for netpol https://docs.microsoft.com/en-us/azure/aks/use-network-policies#overview-of-network-policy
